@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hospital Management System</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: #eee7ff;
+            color: #30264d;
+        }
+
+        /* HOME PAGE */
+
+        .page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+            font-size: 36px;
+        }
+
+        .subtitle {
+            margin-bottom: 35px;
+            color: #6d6285;
+        }
+
+        .menu {
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .card {
+            background: white;
+            padding: 22px;
+            margin: 15px 0;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px #c9c0dc;
+            cursor: pointer;
+            transition: 0.2s;
+            text-align: center;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px #b9aecf;
+        }
+
+        .card h2 {
+            margin: 0;
+            color: #6045a5;
+        }
+
+        .card p {
+            margin: 8px 0 0;
+            color: #777;
+        }
+
+
+        /* MODULE */
+
+        .module {
+            display: none;
+            min-height: 100vh;
+            padding: 30px;
+        }
+
+        .back {
+            border: none;
+            background: #6045a5;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .module h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+
+        /* FORM */
+
+        .form {
+            background: white;
+            width: 100%;
+            max-width: 450px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 5px 20px #c9c0dc;
+        }
+
+        .form h2 {
+            text-align: center;
+            color: #6045a5;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            outline: none;
+            background: white;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #6045a5;
+        }
+
+        .main-btn {
+            width: 100%;
+            margin-top: 25px;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: #6045a5;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .main-btn:hover {
+            background: #4d358d;
+        }
+
+
+        /* OUTPUT */
+
+        .output {
+            max-width: 700px;
+            margin: 25px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px #c9c0dc;
+        }
+
+        .record {
+            border-bottom: 1px solid #ddd;
+            padding: 12px 0;
+        }
+
+        .success {
+            color: green;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .generated-id {
+            background: #f0ebff;
+            color: #6045a5;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+<!-- ================= HOME ================= -->
+
+<div id="home" class="page">
+
+    <h1>Hospital Management System</h1>
+
+    <p class="subtitle">
+        Select a department to continue
+    </p>
+
+    <div class="menu">
+
+        <div class="card" onclick="openPage('reception')">
+            <h2>Reception</h2>
+            <p>Register and manage patients</p>
+        </div>
+
+        <div class="card" onclick="openPage('doctor')">
+            <h2>Doctor</h2>
+            <p>View patients and prescribe treatment</p>
+        </div>
+
+        <div class="card" onclick="openPage('lab')">
+            <h2>Lab Assistant</h2>
+            <p>Upload and manage test results</p>
+        </div>
+
+        <div class="card" onclick="openPage('pharmacy')">
+            <h2>Pharmacy</h2>
+            <p>View prescribed medicines</p>
+        </div>
+
+        <div class="card" onclick="openPage('billing')">
+            <h2>Billing</h2>
+            <p>Generate patient bills</p>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= RECEPTION ================= -->
+
+<div id="reception" class="module">
+
+    <button class="back" onclick="goHome()">← Back</button>
+
+    <h1>Reception</h1>
+
+    <div class="form">
+
+        <h2>Patient Registration</h2>
+
+
+        <label>Patient ID</label>
+
+        <!-- Automatically generated -->
+
+        <input
+            id="patientId"
+            class="generated-id"
+            value="P001"
+            readonly
+        >
+
+
+        <label>Patient Name</label>
+
+        <input
+            id="patientName"
+            placeholder="Enter patient name"
+        >
+
+
+        <label>Age</label>
+
+        <input
+            id="patientAge"
+            type="number"
+            min="1"
+            max="120"
+            placeholder="Enter age"
+        >
+
+
+        <label>Gender</label>
+
+        <select id="patientGender">
+
+            <option value="">Select Gender</option>
+
+            <option value="Male">Male</option>
+
+            <option value="Female">Female</option>
+
+            <option value="Other">Other</option>
+
+        </select>
+
+
+        <label>Disease</label>
+
+        <input
+            id="patientDisease"
+            placeholder="Enter disease"
+        >
+
+
+        <button class="main-btn" onclick="addPatient()">
+            Register Patient
+        </button>
+
+        <p id="patientMessage" class="success"></p>
+
+    </div>
+
+
+    <div id="patientList" class="output"></div>
+
+</div>
+
+
+
+<!-- ================= DOCTOR ================= -->
+
+<div id="doctor" class="module">
+
+    <button class="back" onclick="goHome()">← Back</button>
+
+    <h1>Doctor</h1>
+
+
+    <div class="form">
+
+        <h2>Patient Details</h2>
+
+        <label>Patient ID</label>
+
+        <input
+            id="doctorId"
+            placeholder="Example: P001"
+        >
+
+        <button class="main-btn" onclick="viewPatient()">
+            View Patient
+        </button>
+
+        <div id="patientDetails"></div>
+
+    </div>
+
+
+    <div class="form" style="margin-top:25px">
+
+        <h2>Prescribe Test</h2>
+
+        <label>Patient ID</label>
+
+        <input
+            id="testPatientId"
+            placeholder="Example: P001"
+        >
+
+        <label>Test Name</label>
+
+        <input
+            id="testName"
+            placeholder="Enter test name"
+        >
+
+        <button class="main-btn" onclick="prescribeTest()">
+            Prescribe Test
+        </button>
+
+    </div>
+
+
+    <div class="form" style="margin-top:25px">
+
+        <h2>Prescribe Medicine</h2>
+
+        <label>Patient ID</label>
+
+        <input
+            id="medicinePatientId"
+            placeholder="Example: P001"
+        >
+
+        <label>Medicine Name</label>
+
+        <input
+            id="medicineName"
+            placeholder="Enter medicine name"
+        >
+
+        <label>Quantity</label>
+
+        <input
+            id="medicineQty"
+            type="number"
+            min="1"
+            placeholder="Enter quantity"
+        >
+
+        <button class="main-btn" onclick="prescribeMedicine()">
+            Prescribe Medicine
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= LAB ================= -->
+
+<div id="lab" class="module">
+
+    <button class="back" onclick="goHome()">← Back</button>
+
+    <h1>Lab Assistant</h1>
+
+    <div class="form">
+
+        <h2>Upload Test Result</h2>
+
+        <label>Patient ID</label>
+
+        <input
+            id="resultPatientId"
+            placeholder="Example: P001"
+        >
+
+        <label>Test Name</label>
+
+        <input
+            id="resultTest"
+            placeholder="Enter test name"
+        >
+
+        <label>Result</label>
+
+        <input
+            id="resultValue"
+            placeholder="Enter test result"
+        >
+
+        <button class="main-btn" onclick="uploadResult()">
+            Upload Result
+        </button>
+
+        <p id="resultMessage" class="success"></p>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= PHARMACY ================= -->
+
+<div id="pharmacy" class="module">
+
+    <button class="back" onclick="goHome()">← Back</button>
+
+    <h1>Pharmacy</h1>
+
+    <div class="form">
+
+        <h2>Patient Medicines</h2>
+
+        <label>Patient ID</label>
+
+        <input
+            id="pharmacyId"
+            placeholder="Example: P001"
+        >
+
+        <button class="main-btn" onclick="viewMedicines()">
+            View Medicines
+        </button>
+
+    </div>
+
+    <div id="medicineList" class="output"></div>
+
+</div>
+
+
+
+<!-- ================= BILLING ================= -->
+
+<div id="billing" class="module">
+
+    <button class="back" onclick="goHome()">← Back</button>
+
+    <h1>Billing</h1>
+
+    <div class="form">
+
+        <h2>Generate Bill</h2>
+
+        <label>Patient ID</label>
+
+        <input
+            id="billingId"
+            placeholder="Example: P001"
+        >
+
+        <button class="main-btn" onclick="generateBill()">
+            Generate Bill
+        </button>
+
+    </div>
+
+    <div id="bill" class="output"></div>
+
+</div>
+
+
+
+<script>
+
+    /* DATA */
+
+    let patients = [];
+    let medicines = [];
+    let tests = [];
+    let results = [];
+
+    let patientNumber = 1;
+
+
+    /* PAGE NAVIGATION */
+
+    function openPage(page) {
+
+        document.getElementById("home").style.display = "none";
+
+        document.querySelectorAll(".module").forEach(function(section) {
+            section.style.display = "none";
+        });
+
+        document.getElementById(page).style.display = "block";
+    }
+
+
+    function goHome() {
+
+        document.querySelectorAll(".module").forEach(function(section) {
+            section.style.display = "none";
+        });
+
+        document.getElementById("home").style.display = "flex";
+    }
+
+
+    /* GENERATE PATIENT ID */
+
+    function generatePatientId() {
+
+        return "P" + String(patientNumber).padStart(3, "0");
+
+    }
+
+
+    /* RECEPTION */
+
+    function addPatient() {
+
+        let id = generatePatientId();
+
+        let name =
+            document.getElementById("patientName").value;
+
+        let age =
+            document.getElementById("patientAge").value;
+
+        let gender =
+            document.getElementById("patientGender").value;
+
+        let disease =
+            document.getElementById("patientDisease").value;
+
+
+        if (!name || !age || !gender || !disease) {
+
+            alert("Please fill all patient details");
+
+            return;
+        }
+
+
+        patients.push({
+
+            id: id,
+
+            name: name,
+
+            age: age,
+
+            gender: gender,
+
+            disease: disease
+
+        });
+
+
+        document.getElementById("patientMessage").innerText =
+            "Patient registered successfully. Patient ID: " + id;
+
+
+        patientNumber++;
+
+
+        document.getElementById("patientId").value =
+            generatePatientId();
+
+
+        document.getElementById("patientName").value = "";
+
+        document.getElementById("patientAge").value = "";
+
+        document.getElementById("patientGender").value = "";
+
+        document.getElementById("patientDisease").value = "";
+
+
+        displayPatients();
+
+    }
+
+
+    /* DISPLAY PATIENTS */
+
+    function displayPatients() {
+
+        let output = "<h2>Patient Records</h2>";
+
+
+        patients.forEach(function(p) {
+
+            output += `
+
+                <div class="record">
+
+                    <b>Patient ID:</b> ${p.id}<br>
+
+                    <b>Name:</b> ${p.name}<br>
+
+                    <b>Age:</b> ${p.age}<br>
+
+                    <b>Gender:</b> ${p.gender}<br>
+
+                    <b>Disease:</b> ${p.disease}
+
+                </div>
+
+            `;
+
+        });
+
+
+        document.getElementById("patientList").innerHTML =
+            output;
+
+    }
+
+
+    /* DOCTOR */
+
+    function viewPatient() {
+
+        let id =
+            document.getElementById("doctorId").value;
+
+
+        let patient =
+            patients.find(function(p) {
+
+                return p.id == id;
+
+            });
+
+
+        if (!patient) {
+
+            document.getElementById("patientDetails").innerHTML =
+                "<p style='color:red'>Patient not found</p>";
+
+            return;
+        }
+
+
+        document.getElementById("patientDetails").innerHTML = `
+
+            <div class="record">
+
+                <b>ID:</b> ${patient.id}<br>
+
+                <b>Name:</b> ${patient.name}<br>
+
+                <b>Age:</b> ${patient.age}<br>
+
+                <b>Gender:</b> ${patient.gender}<br>
+
+                <b>Disease:</b> ${patient.disease}
+
+            </div>
+
+        `;
+
+    }
+
+
+    /* TEST */
+
+    function prescribeTest() {
+
+        let id =
+            document.getElementById("testPatientId").value;
+
+        let test =
+            document.getElementById("testName").value;
+
+
+        if (!id || !test) {
+
+            alert("Enter Patient ID and Test Name");
+
+            return;
+        }
+
+
+        tests.push({
+
+            patientId: id,
+
+            test: test
+
+        });
+
+
+        alert("Test prescribed successfully");
+
+    }
+
+
+    /* MEDICINE */
+
+    function prescribeMedicine() {
+
+        let id =
+            document.getElementById("medicinePatientId").value;
+
+        let name =
+            document.getElementById("medicineName").value;
+
+        let qty =
+            document.getElementById("medicineQty").value;
+
+
+        if (!id || !name || !qty) {
+
+            alert("Enter all medicine details");
+
+            return;
+        }
+
+
+        medicines.push({
+
+            patientId: id,
+
+            name: name,
+
+            qty: qty
+
+        });
+
+
+        alert("Medicine prescribed successfully");
+
+    }
+
+
+    /* LAB */
+
+    function uploadResult() {
+
+        let id =
+            document.getElementById("resultPatientId").value;
+
+        let test =
+            document.getElementById("resultTest").value;
+
+        let result =
+            document.getElementById("resultValue").value;
+
+
+        if (!id || !test || !result) {
+
+            alert("Enter all result details");
+
+            return;
+        }
+
+
+        results.push({
+
+            patientId: id,
+
+            test: test,
+
+            result: result
+
+        });
+
+
+        document.getElementById("resultMessage").innerText =
+            "Result uploaded successfully";
+
+    }
+
+
+    /* PHARMACY */
+
+    function viewMedicines() {
+
+        let id =
+            document.getElementById("pharmacyId").value;
+
+
+        let list =
+            medicines.filter(function(m) {
+
+                return m.patientId == id;
+
+            });
+
+
+        let output = "<h2>Medicines</h2>";
+
+
+        if (list.length == 0) {
+
+            output += "No medicines found for this patient.";
+
+        }
+
+
+        list.forEach(function(m) {
+
+            output += `
+
+                <div class="record">
+
+                    <b>Medicine:</b> ${m.name}<br>
+
+                    <b>Quantity:</b> ${m.qty}
+
+                </div>
+
+            `;
+
+        });
+
+
+        document.getElementById("medicineList").innerHTML =
+            output;
+
+    }
+
+
+    /* BILLING */
+
+    function generateBill() {
+
+        let id =
+            document.getElementById("billingId").value;
+
+
+        let list =
+            medicines.filter(function(m) {
+
+                return m.patientId == id;
+
+            });
+
+
+        let medicineCost = 0;
+
+
+        list.forEach(function(m) {
+
+            medicineCost += Number(m.qty) * 50;
+
+        });
+
+
+        let consultation = 500;
+
+        let total = consultation + medicineCost;
+
+
+        document.getElementById("bill").innerHTML = `
+
+            <h2>Hospital Bill</h2>
+
+            <div class="record">
+
+                <b>Patient ID:</b> ${id}<br><br>
+
+                <b>Consultation:</b>
+                Rs. ${consultation}<br>
+
+                <b>Medicine:</b>
+                Rs. ${medicineCost}<br>
+
+                <hr>
+
+                <h2>Total: Rs. ${total}</h2>
+
+            </div>
+
+        `;
+
+    }
+
+</script>
+
+</body>
+</html>
